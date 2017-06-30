@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-command'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion rootProject.sdkVersion
+    buildToolsVersion rootProject.buildTools
+
+    defaultConfig {
+        applicationId 'io.realm.examples.realmgridview'
+        targetSdkVersion rootProject.sdkVersion
+        minSdkVersion 15
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    productFlavors {
+    }
+
+    command {
+        events 2000
+    }
+
+    splits {
+        // Split apks on build target ABI, view all options for the splits here:
+        // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
+        abi {
+            enable true
+            reset()
+            include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'x86', 'x86_64'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.5'
+}

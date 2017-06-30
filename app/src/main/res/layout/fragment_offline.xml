@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_online">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:id="@+id/ln_library"
+                android:background="@drawable/nav_selected"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:clickable="false"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/library_music"/>
+                <TextView
+                    android:id="@+id/textView3"
+                    android:clickable="false"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:paddingRight="125dp"
+                    android:text="Thư viện nhạc"
+                    android:textSize="21sp"
+                    android:layout_weight="2"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/expand"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/favorite_music"/>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:clickable="false"
+                    android:paddingRight="110dp"
+                    android:text="Nhạc Yêu thích"
+                    android:textSize="21sp"
+                    android:layout_weight="2"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/expand"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/playlist"/>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:paddingRight="180dp"
+                    android:text="Playlist"
+                    android:textSize="21sp"
+                    android:layout_weight="2"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/expand"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

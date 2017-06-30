@@ -1,0 +1,50 @@
+buildscript {
+    ext.kotlin_version = '1.1.1'
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'android-command'
+apply plugin: 'realm-android'
+
+android {
+    //noinspection GroovyAssignabilityCheck
+    compileSdkVersion rootProject.sdkVersion
+    //noinspection GroovyAssignabilityCheck
+    buildToolsVersion rootProject.buildTools
+
+    defaultConfig {
+        applicationId 'io.realm.examples.kotlin'
+        //noinspection GroovyAssignabilityCheck
+        targetSdkVersion rootProject.sdkVersion
+        minSdkVersion 15
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    command {
+        events 2000
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+    compile 'org.jetbrains.anko:anko-sdk15:0.8.2'
+}

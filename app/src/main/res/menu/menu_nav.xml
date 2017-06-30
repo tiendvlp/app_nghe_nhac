@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/search"
+        android:title="Tìm kiếm"
+        android:enabled="true"
+        android:id="@+id/nav_item_search"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:icon="@drawable/music_offline"
+        android:title="My music"
+        android:enabled="true"
+        android:id="@+id/nav_item_music_offline"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:icon="@drawable/music_online"
+        android:title="Online"
+        android:id="@+id/nav_item_music_online"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+</menu>

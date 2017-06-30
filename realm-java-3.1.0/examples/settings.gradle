@@ -1,0 +1,18 @@
+include 'secureTokenAndroidKeyStore'
+include 'encryptionExample'
+include 'gridViewExample'
+include 'introExample'
+include 'jsonExample'
+include 'kotlinExample'
+include 'migrationExample'
+include 'moduleExample:app'
+include 'moduleExample:library'
+include 'realmModuleExample'
+include 'threadExample'
+include 'unitTestExample'
+include 'newsreaderExample'
+include 'rxJavaExample'
+include 'objectServerExample'
+
+rootProject.name = 'realm-examples'
+
