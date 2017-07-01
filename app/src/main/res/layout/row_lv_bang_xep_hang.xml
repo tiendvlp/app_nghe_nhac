@@ -12,6 +12,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:transitionName="ten_baihat0"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/img_row_bang_xep_hang"
@@ -20,6 +21,7 @@
     <TextView
         android:id="@+id/txt_row_bxh_ten_baihat3"
         android:layout_width="230dp"
+        android:transitionName="ten_baihat2"
         android:layout_height="30dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -33,6 +35,7 @@
         android:id="@+id/txt_row_bxh_ten_baihat2"
         android:layout_width="230dp"
         android:layout_height="30dp"
+        android:transitionName="ten_baihat1"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"

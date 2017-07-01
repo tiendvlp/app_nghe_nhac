@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/txt_ten_baihat_bxh"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Tên bài hát"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintLeft_toRightOf="@+id/img_baihat_bxh"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_ten_casi_bxh"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="11dp"
+        android:text="Tên ca sĩ"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintLeft_toRightOf="@+id/img_baihat_bxh"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_ten_baihat_bxh" />
+
+    <ImageView
+        android:id="@+id/img_baihat_bxh"
+        android:layout_width="60dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/favorite_music" />
+
+    <ImageButton
+        android:id="@+id/btn_more_bxh"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintLeft_toRightOf="@+id/txt_ten_casi_bxh"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_more" />
+</android.support.constraint.ConstraintLayout>

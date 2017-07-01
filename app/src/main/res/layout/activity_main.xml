@@ -7,7 +7,15 @@
     android:orientation="vertical"
     android:weightSum="2"
     tools:context="com.example.dangminhtien.zingmp3.MainActivity">
-
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1.75"
+        android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,11 +23,23 @@
         android:id="@+id/frame_main"
         ></FrameLayout>
 
+
+</LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:background="#4a148c"
+        android:id="@+id/btms_play_music"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+    <include layout="@layout/play_music"/>
+    </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         app:menu="@menu/menu_nav"
+        android:background="@color/colorRed_beauty"
         android:id="@+id/btm_nav_menu"
         android:layout_weight="0.25"></android.support.design.widget.BottomNavigationView>
-
 </LinearLayout>
