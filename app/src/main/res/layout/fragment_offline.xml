@@ -50,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:src="@drawable/nav_selected"
+                android:id="@+id/ln_favorite"
+                android:background="@drawable/nav_selected"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="wrap_content"
@@ -81,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:src="@drawable/nav_selected"
+                android:id="@+id/ln_playlist"
+                android:background="@drawable/nav_selected"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="wrap_content"

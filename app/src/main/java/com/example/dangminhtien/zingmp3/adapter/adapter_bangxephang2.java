@@ -50,9 +50,9 @@ public class adapter_bangxephang2 extends RecyclerView.Adapter<adapter_bangxepha
 
         public viewholder(View itemView) {
             super(itemView);
-            txt_ten_baihat_bxh= (TextView) itemView.findViewById(R.id.txt_ten_baihat_bxh);
-            txt_ten_casi_bxh= (TextView) itemView.findViewById(R.id.txt_ten_casi_bxh);
-            img_baihat_bxh= (ImageView) itemView.findViewById(R.id.img_baihat_bxh);
+            txt_ten_baihat_bxh= (TextView) itemView.findViewById(R.id.txt_ten_baihat_lbr);
+            txt_ten_casi_bxh= (TextView) itemView.findViewById(R.id.txt_ten_casi_lbr);
+            img_baihat_bxh= (ImageView) itemView.findViewById(R.id.img_baihat_lbr);
             btn_more_bxh= (ImageButton) itemView.findViewById(R.id.btn_more_bxh);
         }
     }

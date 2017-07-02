@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class fragment_offline extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     private LinearLayout ln_library;
+    private LinearLayout ln_favorite;
+    private LinearLayout ln_playlist;
     private OnFragmentInteractionListener mListener;
 
     public fragment_offline() {
@@ -26,20 +23,12 @@ public class fragment_offline extends Fragment {
 
     public static fragment_offline newInstance(String param1, String param2) {
         fragment_offline fragment = new fragment_offline();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -57,10 +46,27 @@ public class fragment_offline extends Fragment {
 
     private void addControls(View view) {
         ln_library= (LinearLayout) view.findViewById(R.id.ln_library);
+        ln_favorite= (LinearLayout) view.findViewById(R.id.ln_favorite);
+        ln_playlist= (LinearLayout) view.findViewById(R.id.ln_playlist);
         ln_library.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();;
+                MainActivity mainActivity = new MainActivity();
+                mainActivity.replace_fragment_library((AppCompatActivity) getContext());
+            }
+        });
+
+        ln_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ln_playlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

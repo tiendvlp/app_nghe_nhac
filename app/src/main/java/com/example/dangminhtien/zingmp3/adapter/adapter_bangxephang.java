@@ -47,7 +47,7 @@ public class adapter_bangxephang extends RecyclerView.Adapter<adapter_bangxephan
     public void onClick(View v) {
         int position = recyclerView.getChildLayoutPosition(v);
         MainActivity mainActivity=new MainActivity();
-        mainActivity.replace_fragment((AppCompatActivity) context);
+        mainActivity.replace_fragment_bangxephang((AppCompatActivity) context);
     }
 
     class viewholder extends RecyclerView.ViewHolder {

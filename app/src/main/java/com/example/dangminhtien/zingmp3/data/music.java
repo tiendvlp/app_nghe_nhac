@@ -6,11 +6,13 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.LinkingObjects;
+import io.realm.annotations.PrimaryKey;
 
 public class music extends RealmObject {
     private String song_name;
     private boolean favorite_music;
     private String singer_name;
+    @PrimaryKey
     private String id_music;
     private String image_song;
     @LinkingObjects("musics")

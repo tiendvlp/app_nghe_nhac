@@ -43,18 +43,4 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/favorite_music" />
-
-    <ImageButton
-        android:id="@+id/btn_more_bxh"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@null"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintLeft_toRightOf="@+id/txt_ten_casi_lbr"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_more" />
 </android.support.constraint.ConstraintLayout>
