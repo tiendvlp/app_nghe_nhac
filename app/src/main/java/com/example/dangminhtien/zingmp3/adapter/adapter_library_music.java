@@ -14,25 +14,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.dangminhtien.zingmp3.service.*;
+
 import com.example.dangminhtien.zingmp3.R;
 import com.example.dangminhtien.zingmp3.data.music;
 
 import java.util.ArrayList;
 
-/**
- * Created by tiend on 7/2/2017.
- */
-
 public class adapter_library_music extends RecyclerView.Adapter<adapter_library_music.viewholder> implements View.OnClickListener {
     private ArrayList<music> src_music;
     private Context context;
     private RecyclerView rcv_lbr;
+    private on_child_click_listener on_click_listener;
 
     public adapter_library_music(Context context, ArrayList<music> src_music, RecyclerView rcv_lbr) {
         this.src_music = src_music;
         this.context = context;
-        this.rcv_lbr=rcv_lbr;
+        this.rcv_lbr = rcv_lbr;
     }
 
     @Override
@@ -57,29 +54,26 @@ public class adapter_library_music extends RecyclerView.Adapter<adapter_library_
     @Override
     public void onClick(View v) {
         int position = rcv_lbr.getChildLayoutPosition(v);
-        Intent intent = new Intent(context, service_music.class);
-        ServiceConnection connectionService = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        };
-        context.bindService(intent,connectionService, Context.BIND_AUTO_CREATE);
+        on_click_listener.on_child_click(src_music.get(position));
     }
 
     class viewholder extends RecyclerView.ViewHolder {
         TextView txt_ten_baihat_lbr, txt_ten_casi_lbr;
         ImageView img_baihat_lbr;
+
         public viewholder(View itemView) {
             super(itemView);
-            txt_ten_baihat_lbr= (TextView) itemView.findViewById(R.id.txt_ten_baihat_lbr);
-            txt_ten_casi_lbr= (TextView) itemView.findViewById(R.id.txt_ten_casi_lbr);
-            img_baihat_lbr= (ImageView) itemView.findViewById(R.id.img_baihat_lbr);
+            txt_ten_baihat_lbr = (TextView) itemView.findViewById(R.id.txt_ten_baihat_lbr);
+            txt_ten_casi_lbr = (TextView) itemView.findViewById(R.id.txt_ten_casi_lbr);
+            img_baihat_lbr = (ImageView) itemView.findViewById(R.id.img_baihat_lbr);
         }
+    }
+
+    public void set_on_click_listener (on_child_click_listener on_click_listener) {
+        this.on_click_listener=on_click_listener;
+    }
+
+    public interface on_child_click_listener {
+        void on_child_click(music music);
     }
 }

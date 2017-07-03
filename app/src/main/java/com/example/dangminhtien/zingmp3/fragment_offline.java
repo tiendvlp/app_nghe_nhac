@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.dangminhtien.zingmp3.fragment.fragment_music_library;
+
 public class fragment_offline extends Fragment {
     private LinearLayout ln_library;
     private LinearLayout ln_favorite;
@@ -52,7 +54,7 @@ public class fragment_offline extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity mainActivity = new MainActivity();
-                mainActivity.replace_fragment_library((AppCompatActivity) getContext());
+                mainActivity.replace_fragment((AppCompatActivity) getContext(), new fragment_music_library());
             }
         });
 

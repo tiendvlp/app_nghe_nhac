@@ -2,31 +2,31 @@ package com.example.dangminhtien.zingmp3.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Binder;
-import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
+
+import com.example.dangminhtien.zingmp3.model.xuly_music;
 
 import java.io.IOException;
 
-/**
- * Created by tiend on 7/1/2017.
- */
-
 public class service_music extends Service {
+    public static boolean is_bind=false;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        is_bind=true;
+        xuly_music xuly_music= com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
+
         try {
-            mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Zingmp3/"+"song/"+"ghen.mp3");
-            mediaPlayer.prepare();
-            mediaPlayer.start();
+            xuly_music.set_data_source(intent.getStringExtra("song_name"));
+            xuly_music.play();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        Toast.makeText(getApplicationContext(), "run", Toast.LENGTH_SHORT).show();
+        return new binder();
     }
 
     @Override
@@ -36,7 +36,10 @@ public class service_music extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
+        xuly_music.get_instance().stop_music();
+        is_bind=false;
         return super.onUnbind(intent);
+
     }
 
    public class binder extends Binder {

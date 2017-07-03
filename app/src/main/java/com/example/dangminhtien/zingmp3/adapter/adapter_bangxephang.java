@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.example.dangminhtien.zingmp3.MainActivity;
 import com.example.dangminhtien.zingmp3.R;
 import com.example.dangminhtien.zingmp3.data.bangxephang;
+import com.example.dangminhtien.zingmp3.fragment_bangxephang;
+import com.example.dangminhtien.zingmp3.fragment_bangxephang_online;
+
 import java.util.ArrayList;
 
 public class adapter_bangxephang extends RecyclerView.Adapter<adapter_bangxephang.viewholder> implements View.OnClickListener {
@@ -47,7 +50,7 @@ public class adapter_bangxephang extends RecyclerView.Adapter<adapter_bangxephan
     public void onClick(View v) {
         int position = recyclerView.getChildLayoutPosition(v);
         MainActivity mainActivity=new MainActivity();
-        mainActivity.replace_fragment_bangxephang((AppCompatActivity) context);
+        mainActivity.replace_fragment((AppCompatActivity) context, new fragment_bangxephang());
     }
 
     class viewholder extends RecyclerView.ViewHolder {
