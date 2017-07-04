@@ -10,6 +10,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class music extends RealmObject {
     private String song_name;
+    private String song_name_path;
     private boolean favorite_music;
     private String singer_name;
     @PrimaryKey
@@ -24,6 +25,14 @@ public class music extends RealmObject {
 
     public String getId_music() {
         return id_music;
+    }
+
+    public String getSong_name_path() {
+        return song_name_path;
+    }
+
+    public void setSong_name_path(String song_name_path) {
+        this.song_name_path = song_name_path;
     }
 
     public void setId_music(String id_music) {

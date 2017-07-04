@@ -1,21 +1,14 @@
-package com.example.dangminhtien.zingmp3.model;
-
-import android.content.Context;
-import android.media.MediaPlayer;
-import android.os.Environment;
-
-import java.io.IOException;
 
 public class xuly_music {
     private static MediaPlayer mediaPlayer;
     private static final xuly_music xuly_music=new xuly_music();
     // Tự tạo vòng đời
-    public static final int IDLE=0;
-    public static final int PLAYING=1;
-    public static final int STOPPED=2;
-    public static final int PAUSE=3;
+    private static final int IDLE=0;
+    private static final int PLAYING=1;
+    private static final int STOPPED=2;
+    private static final int PAUSE=3;
     // ban đầu sẽ là idle
-    public static int STATE=IDLE;
+    private static int STATE=IDLE;
     private on_play_listener on_play_listener;
 
     private xuly_music () {
@@ -81,6 +74,6 @@ public class xuly_music {
     }
 
     public interface on_play_listener {
-        void on_play();
+        void on_play ();
     }
 }

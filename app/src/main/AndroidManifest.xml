@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".service.service_music"/>
+        <service android:name=".service.service_music"
+            android:exported="true"
+            android:enabled="true"/>
     </application>
-
 </manifest>

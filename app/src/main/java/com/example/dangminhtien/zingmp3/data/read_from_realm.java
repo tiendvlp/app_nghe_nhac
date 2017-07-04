@@ -41,7 +41,7 @@ public class read_from_realm {
     }
 
     public ArrayList<music> get_all_favorite_music () {
-        RealmResults<music> musics = realm.where(com.example.dangminhtien.zingmp3.data.music.class).equalTo("favorite_song", true).findAll();
+        RealmResults<music> musics = realm.where(music.class).equalTo("favorite_song", true).findAll();
         ArrayList<music> result = new ArrayList<music>();
         result.addAll(musics);
         return result;

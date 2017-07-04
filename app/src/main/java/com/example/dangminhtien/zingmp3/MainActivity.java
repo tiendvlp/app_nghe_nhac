@@ -27,9 +27,13 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.dangminhtien.zingmp3.data.helper_tools;
+import com.example.dangminhtien.zingmp3.data.music;
+import com.example.dangminhtien.zingmp3.data.write_data_to_external_storage;
+import com.example.dangminhtien.zingmp3.data.write_to_realm;
 import com.example.dangminhtien.zingmp3.model.xuly_music;
 import com.example.dangminhtien.zingmp3.service.service_music;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Handler;
@@ -37,7 +41,7 @@ import java.util.logging.LogRecord;
 
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity implements ServiceConnection {
+public class MainActivity extends AppCompatActivity implements ServiceConnection, xuly_music.on_play_listener {
     private BottomNavigationView btm_nav_menu;
     private Fragment fragment_offline, fragment_search, fragment_online;
     private helper_tools helper_tools;
@@ -57,8 +61,24 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         addControls();
         addEvents();
         xuly_bottom_sheet();
-    }
+        music music = new music();
+        music.setId_music("12312312");
+        music.setSinger_name("Noo");
+        music.setSong_name("Mình Anh");
+        music.setFavorite_music(true);
+        music.setSong_name_path("minhanh");
 
+        music music1 = new music();
+        music1.setId_music("12312312123");
+        music1.setSinger_name("Erik");
+        music1.setSong_name("Ghen");
+        music1.setFavorite_music(true);
+        music1.setSong_name_path("ghen");
+
+        write_to_realm write_to_realm = new write_to_realm(getApplicationContext());
+//        write_to_realm.write(music);
+//        write_to_realm.write(music1);
+    }
     private void addControls() {
         btms=findViewById(R.id.btms_play_music);
         behavior = BottomSheetBehavior.from(btms);
@@ -72,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         btn_play= (ImageButton) findViewById(R.id.btn_play);
         btn_pause= (ImageButton) findViewById(R.id.btn_pause);
         sb_music= (SeekBar) findViewById(R.id.sb_music);
+        xuly_music.get_instance().set_on_play_listener(this);
     }
 
     private void addEvents() {
@@ -98,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (xuly_music.is_playing) {
+                if (xuly_music.STATE==xuly_music.PLAYING) {
                 btn_pause.setVisibility(View.GONE);
                 btn_play.setVisibility(View.VISIBLE);
                 xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
@@ -109,17 +130,12 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!xuly_music.is_playing) {
+                if (!(xuly_music.STATE==xuly_music.PLAYING)) {
                 btn_pause.setVisibility(View.VISIBLE);
                 btn_play.setVisibility(View.GONE);
                 xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
                 xuly_music.play();
 
-                    sb_music.setMax(xuly_music.get_duration());
-                    sb_music.setProgress(0);
-                    Toast.makeText(getApplicationContext(), xuly_music.get_duration()+"", Toast.LENGTH_SHORT).show();
-                    update_seekBar update_seekBar = new update_seekBar();
-                    update_seekBar.execute();
             }}
         });
 
@@ -216,15 +232,22 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         STATE=DISCONNECTED;
     }
 
+    @Override
+    public void on_play() {
+        sb_music.setMax(xuly_music.get_instance().get_duration());
+        sb_music.setProgress(0);
+        update_seekBar update_seekBar = new update_seekBar();
+        update_seekBar.execute();
+    }
+
     class update_seekBar extends AsyncTask<Integer, Integer, Void> {
 
         @Override
         protected Void doInBackground(Integer... params) {
             int progress = 0;
-            while (xuly_music.is_playing) {
+            while (xuly_music.STATE==xuly_music.PLAYING) {
                     try {
                         Thread.sleep(500);
-//                        progress+=500;
                         publishProgress(xuly_music.get_instance().get_current_position());
                     } catch (InterruptedException e) {
                         e.printStackTrace();

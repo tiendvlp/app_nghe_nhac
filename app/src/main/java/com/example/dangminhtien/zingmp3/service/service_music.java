@@ -16,16 +16,12 @@ public class service_music extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        is_bind=true;
-        xuly_music xuly_music= com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
-
         try {
-            xuly_music.set_data_source(intent.getStringExtra("song_name"));
-            xuly_music.play();
+            xuly_music.get_instance().set_data_source(intent.getStringExtra("song_name"));
+            xuly_music.get_instance().play();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Toast.makeText(getApplicationContext(), "run", Toast.LENGTH_SHORT).show();
         return new binder();
     }
 
@@ -37,7 +33,6 @@ public class service_music extends Service {
     @Override
     public boolean onUnbind(Intent intent) {
         xuly_music.get_instance().stop_music();
-        is_bind=false;
         return super.onUnbind(intent);
 
     }

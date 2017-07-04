@@ -33,14 +33,14 @@ public class adapter_library_music extends RecyclerView.Adapter<adapter_library_
     }
 
     @Override
-    public adapter_library_music.viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.row_library_music, parent, false);
         view.setOnClickListener(this);
         return new viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(adapter_library_music.viewholder holder, int position) {
+    public void onBindViewHolder(viewholder holder, int position) {
         holder.txt_ten_casi_lbr.setText(src_music.get(position).getSinger_name());
         holder.txt_ten_baihat_lbr.setText(src_music.get(position).getSong_name());
     }
@@ -54,7 +54,7 @@ public class adapter_library_music extends RecyclerView.Adapter<adapter_library_
     @Override
     public void onClick(View v) {
         int position = rcv_lbr.getChildLayoutPosition(v);
-        on_click_listener.on_child_click(src_music.get(position));
+        on_click_listener.on_child_click(src_music.get(position), position);
     }
 
     class viewholder extends RecyclerView.ViewHolder {
@@ -74,6 +74,6 @@ public class adapter_library_music extends RecyclerView.Adapter<adapter_library_
     }
 
     public interface on_child_click_listener {
-        void on_child_click(music music);
+        void on_child_click(music music, int position);
     }
 }

@@ -25,6 +25,7 @@ import com.example.dangminhtien.zingmp3.data.read_from_realm;
 import com.example.dangminhtien.zingmp3.model.xuly_music;
 import com.example.dangminhtien.zingmp3.service.service_music;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class fragment_music_library extends Fragment {
@@ -64,15 +65,22 @@ public class fragment_music_library extends Fragment {
     private void addEvents() {
         adapter_library_music.set_on_click_listener(new adapter_library_music.on_child_click_listener() {
             @Override
-            public void on_child_click(music music) {
-                Intent intent = new Intent(getContext(), service_music.class);
-                intent.putExtra("song_name", "ghen");
-                if (MainActivity.STATE == MainActivity.CONNECTED) {
-                    Toast.makeText(getContext(), "Disconected", Toast.LENGTH_SHORT).show();
-                    xuly_music.get_instance().stop_music();
-                    getContext().unbindService(new MainActivity());
-                } else {
-                bind = getContext().bindService(intent, new MainActivity(), Context.BIND_AUTO_CREATE);
+            public void on_child_click(music music, int position) {
+
+                    if (MainActivity.STATE== MainActivity.CONNECTED) {
+                        try {
+                            xuly_music.get_instance().reset();
+                            xuly_music.get_instance().set_data_source(music.getSong_name_path());
+                            xuly_music.get_instance().play();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Intent intent = new Intent(getContext(), service_music.class);
+                            intent.putExtra("song_name", music.getSong_name_path());
+                bind=getContext().bindService(intent, new MainActivity(), Context.BIND_AUTO_CREATE);
+
+
         }}});
     }
 
