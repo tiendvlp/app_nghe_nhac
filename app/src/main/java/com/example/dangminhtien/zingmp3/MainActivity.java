@@ -30,6 +30,7 @@ import com.example.dangminhtien.zingmp3.data.helper_tools;
 import com.example.dangminhtien.zingmp3.data.music;
 import com.example.dangminhtien.zingmp3.data.write_data_to_external_storage;
 import com.example.dangminhtien.zingmp3.data.write_to_realm;
+import com.example.dangminhtien.zingmp3.model.create_notification;
 import com.example.dangminhtien.zingmp3.model.xuly_music;
 import com.example.dangminhtien.zingmp3.service.service_music;
 
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         btn_pause= (ImageButton) findViewById(R.id.btn_pause);
         sb_music= (SeekBar) findViewById(R.id.sb_music);
         xuly_music.get_instance().set_on_play_listener(this);
+        create_notification create_notification = new create_notification(MainActivity.this);
+        create_notification.noti();
     }
 
     private void addEvents() {
