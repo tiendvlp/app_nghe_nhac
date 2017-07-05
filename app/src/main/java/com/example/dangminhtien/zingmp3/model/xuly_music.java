@@ -3,6 +3,7 @@ package com.example.dangminhtien.zingmp3.model;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -53,8 +54,8 @@ public class xuly_music {
     public void play() {
         if(STATE == IDLE || STATE == PAUSE || STATE == STOPPED) {
             mediaPlayer.start();
-            on_play_listener.on_play();
             STATE=PLAYING;
+            on_play_listener.on_play();
         }}
 
     public void seek_to (int mili) {
@@ -71,6 +72,19 @@ public class xuly_music {
         return mediaPlayer.getCurrentPosition();
     }
 
+    public String duration_toString () {
+        int duration = get_duration();
+        int minutes = duration/60000;
+        int second = (duration%60000)/1000;
+        String minutes_string=minutes+"";
+        String second_string=second+"";
+        String second_string1=second+"";
+            if (second+"".length()==1) {
+                second_string1="0" +second_string;
+            }
+        return minutes_string+":"+second_string1;
+    }
+
     public void reset() {
         // reset media (reset cả resource, phải set lại resource sau khi reset)
         mediaPlayer.reset();
@@ -83,4 +97,5 @@ public class xuly_music {
     public interface on_play_listener {
         void on_play();
     }
+
 }

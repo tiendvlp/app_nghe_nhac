@@ -94,8 +94,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         btn_pause= (ImageButton) findViewById(R.id.btn_pause);
         sb_music= (SeekBar) findViewById(R.id.sb_music);
         xuly_music.get_instance().set_on_play_listener(this);
-        create_notification create_notification = new create_notification(MainActivity.this);
-        create_notification.noti();
+
     }
 
     private void addEvents() {
@@ -241,6 +240,11 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         sb_music.setProgress(0);
         update_seekBar update_seekBar = new update_seekBar();
         update_seekBar.execute();
+
+        create_notification create_notification = new create_notification(MainActivity.this);
+        create_notification.create_noti("Mình Anh", xuly_music.get_instance().duration_toString());
+        create_notification.update_notifi(true);
+        create_notification.noti();
     }
 
     class update_seekBar extends AsyncTask<Integer, Integer, Void> {
