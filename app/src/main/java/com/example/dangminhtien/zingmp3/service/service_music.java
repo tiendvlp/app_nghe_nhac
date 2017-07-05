@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.example.dangminhtien.zingmp3.model.xuly_music;
 
@@ -18,7 +17,7 @@ public class service_music extends Service {
     public IBinder onBind(Intent intent) {
         try {
             xuly_music.get_instance().set_data_source(intent.getStringExtra("song_name"));
-            xuly_music.get_instance().play();
+            xuly_music.get_instance().play(null);
         } catch (IOException e) {
             e.printStackTrace();
         }

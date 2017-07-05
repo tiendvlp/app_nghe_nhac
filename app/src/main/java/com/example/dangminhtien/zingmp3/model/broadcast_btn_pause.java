@@ -11,7 +11,7 @@ public class broadcast_btn_pause extends BroadcastReceiver {
         if (xuly_music.STATE==xuly_music.PLAYING) {
             xuly_music.get_instance().pause();
         } else {
-            xuly_music.get_instance().play();
+            xuly_music.get_instance().play(null);
         }
             create_notification.create_noti(null,null);
             create_notification.update_notifi(xuly_music.STATE==xuly_music.PLAYING);

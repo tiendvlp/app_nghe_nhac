@@ -1,14 +1,10 @@
 package com.example.dangminhtien.zingmp3;
 
 import android.annotation.TargetApi;
-import android.app.Service;
-import android.content.AsyncQueryHandler;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.CountDownTimer;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,23 +18,17 @@ import android.transition.TransitionInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.example.dangminhtien.zingmp3.data.helper_tools;
 import com.example.dangminhtien.zingmp3.data.music;
-import com.example.dangminhtien.zingmp3.data.write_data_to_external_storage;
 import com.example.dangminhtien.zingmp3.data.write_to_realm;
 import com.example.dangminhtien.zingmp3.model.create_notification;
 import com.example.dangminhtien.zingmp3.model.xuly_music;
 import com.example.dangminhtien.zingmp3.service.service_music;
-
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import io.realm.Realm;
 
@@ -48,12 +38,14 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     private helper_tools helper_tools;
     private BottomSheetBehavior behavior;
     private View btms;
-    private Service service_music;
+    private ImageView img_song;
+    private com.example.dangminhtien.zingmp3.service.service_music service_music;
     private ImageButton btn_pause, btn_backward, btn_forward, btn_play;
     public static final int CONNECTED=0;
     public static final int DISCONNECTED=1;
     private SeekBar sb_music;
     public static int STATE=DISCONNECTED;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         btn_forward= (ImageButton) findViewById(R.id.btn_forward);
         btn_play= (ImageButton) findViewById(R.id.btn_play);
         btn_pause= (ImageButton) findViewById(R.id.btn_pause);
+        img_song= (ImageView) findViewById(R.id.img_song);
         sb_music= (SeekBar) findViewById(R.id.sb_music);
         xuly_music.get_instance().set_on_play_listener(this);
 
@@ -136,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 btn_pause.setVisibility(View.VISIBLE);
                 btn_play.setVisibility(View.GONE);
                 xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
-                xuly_music.play();
+                xuly_music.play(null);
 
             }}
         });
@@ -235,16 +228,18 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     }
 
     @Override
-    public void on_play() {
+    public void on_play(music music) {
         sb_music.setMax(xuly_music.get_instance().get_duration());
         sb_music.setProgress(0);
         update_seekBar update_seekBar = new update_seekBar();
         update_seekBar.execute();
 
         create_notification create_notification = new create_notification(MainActivity.this);
-        create_notification.create_noti("Mình Anh", xuly_music.get_instance().duration_toString());
-        create_notification.update_notifi(true);
-        create_notification.noti();
+                    if (music!=null) {
+                create_notification.create_noti(music.getSong_name(), xuly_music.get_instance().duration_toString());
+                create_notification.update_notifi(true);
+                create_notification.noti();}
+        img_song.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_img_song_rotate));
     }
 
     class update_seekBar extends AsyncTask<Integer, Integer, Void> {

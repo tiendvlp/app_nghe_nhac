@@ -1,9 +1,9 @@
 package com.example.dangminhtien.zingmp3.model;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Environment;
-import android.widget.Toast;
+
+import com.example.dangminhtien.zingmp3.data.music;
 
 import java.io.IOException;
 
@@ -18,6 +18,8 @@ public class xuly_music {
     // ban đầu sẽ là idle
     public static int STATE=IDLE;
     private on_play_listener on_play_listener;
+    // dùng để truyền thằng music này cho những thằng bắt sự kiện play
+    private static music music;
 
     private xuly_music () {
         mediaPlayer=new MediaPlayer();
@@ -51,11 +53,11 @@ public class xuly_music {
         }
     }
 
-    public void play() {
+    public void play(music music) {
         if(STATE == IDLE || STATE == PAUSE || STATE == STOPPED) {
             mediaPlayer.start();
             STATE=PLAYING;
-            on_play_listener.on_play();
+            on_play_listener.on_play(music);
         }}
 
     public void seek_to (int mili) {
@@ -78,11 +80,10 @@ public class xuly_music {
         int second = (duration%60000)/1000;
         String minutes_string=minutes+"";
         String second_string=second+"";
-        String second_string1=second+"";
-            if (second+"".length()==1) {
-                second_string1="0" +second_string;
+            if (second<10) {
+                second_string="0" +second;
             }
-        return minutes_string+":"+second_string1;
+        return minutes_string+":"+second_string;
     }
 
     public void reset() {
@@ -94,8 +95,16 @@ public class xuly_music {
         this.on_play_listener=on_play_listener;
     }
 
+    public static com.example.dangminhtien.zingmp3.data.music getMusic() {
+        return music;
+    }
+
+    public static void setMusic(com.example.dangminhtien.zingmp3.data.music music) {
+        com.example.dangminhtien.zingmp3.model.xuly_music.music = music;
+    }
+
     public interface on_play_listener {
-        void on_play();
+        void on_play(music music);
     }
 
 }

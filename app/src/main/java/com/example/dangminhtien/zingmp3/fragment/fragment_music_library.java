@@ -71,7 +71,7 @@ public class fragment_music_library extends Fragment {
                         try {
                             xuly_music.get_instance().reset();
                             xuly_music.get_instance().set_data_source(music.getSong_name_path());
-                            xuly_music.get_instance().play();
+                            xuly_music.get_instance().play(music);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
