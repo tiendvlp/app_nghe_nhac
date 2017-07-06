@@ -1,11 +1,14 @@
 package com.example.dangminhtien.zingmp3.model;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Environment;
 
 import com.example.dangminhtien.zingmp3.data.music;
+import com.example.dangminhtien.zingmp3.data.read_from_realm;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class xuly_music {
     private static MediaPlayer mediaPlayer;
@@ -18,10 +21,11 @@ public class xuly_music {
     public static final int PAUSE=3;
     // ban đầu sẽ là idle
     public static int STATE=IDLE;
+    private static int position;
 
     public static final int SRC_FROM_lIBRARY=12920301;
     public static final int SRC_FROM_FAVORITE=122309912;
-    public static int SRC_FROM;
+    private static int SRC_FROM;
     private on_play_pause_listener on_play_pause_listener;
     // dùng để truyền thằng music này cho những thằng bắt sự kiện play
     private static music music;
@@ -34,7 +38,6 @@ public class xuly_music {
     public static xuly_music get_instance () {
             return xuly_music;
     }
-
 
     public void set_data_source(String song_name) throws IOException {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Zingmp3/song/"+song_name+".mp3";
@@ -66,6 +69,11 @@ public class xuly_music {
             STATE=PLAYING;
             on_play_pause_listener.on_play(music);
         }}
+
+    public void set_src_position (int SRC_FROM, int position) {
+        com.example.dangminhtien.zingmp3.model.xuly_music.SRC_FROM=SRC_FROM;
+        com.example.dangminhtien.zingmp3.model.xuly_music.position=position;
+    }
 
     public void seek_to (int mili) {
         mediaPlayer.seekTo(mili);
@@ -102,6 +110,22 @@ public class xuly_music {
         this.on_play_pause_listener=on_play_listener;
     }
 
+    public void next_music () {
+
+    }
+
+    public ArrayList<music> get_source (Context context) {
+        read_from_realm read_from_realm = new read_from_realm(context);
+        switch (SRC_FROM) {
+            case SRC_FROM_lIBRARY:
+                return read_from_realm.get_all_music();
+            case SRC_FROM_FAVORITE:
+                return read_from_realm.get_all_favorite_music();
+            default:
+                return null;
+        }
+    }
+
     public static com.example.dangminhtien.zingmp3.data.music getMusic() {
         return music;
     }
@@ -114,5 +138,4 @@ public class xuly_music {
         void on_play(music music);
         void on_pause(music music);
     }
-
 }

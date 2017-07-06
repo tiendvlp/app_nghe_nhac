@@ -70,9 +70,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         music1.setSong_name_path("1234");
 
         write_to_realm write_to_realm = new write_to_realm(getApplicationContext());
-//        write_to_realm.write(music);
-//        write_to_realm.write(music1);
     }
+
     private void addControls() {
         btms=findViewById(R.id.btms_play_music);
         behavior = BottomSheetBehavior.from(btms);
