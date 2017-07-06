@@ -32,7 +32,7 @@ import com.example.dangminhtien.zingmp3.service.service_music;
 
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity implements ServiceConnection, xuly_music.on_play_listener {
+public class MainActivity extends AppCompatActivity implements ServiceConnection, xuly_music.on_play_pause_listener {
     private BottomNavigationView btm_nav_menu;
     private Fragment fragment_offline, fragment_search, fragment_online;
     private helper_tools helper_tools;
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     private ImageView img_song;
     private com.example.dangminhtien.zingmp3.service.service_music service_music;
     private ImageButton btn_pause, btn_backward, btn_forward, btn_play;
+    private ImageButton btn_pause_btms, btn_backward_btms, btn_forward_btms, btn_play_btms;
     public static final int CONNECTED=0;
     public static final int DISCONNECTED=1;
     private SeekBar sb_music;
@@ -80,12 +81,18 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         fragment_search=new fragment_search();
         fragment_online=new fragment_online();
         helper_tools=new helper_tools(this,this);
-        btn_backward= (ImageButton) findViewById(R.id.btn_backward);
-        btn_forward= (ImageButton) findViewById(R.id.btn_forward);
-        btn_play= (ImageButton) findViewById(R.id.btn_play);
-        btn_pause= (ImageButton) findViewById(R.id.btn_pause);
+        btn_backward= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_backward);
+        btn_forward= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_forward);
+        btn_play= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_play);
+        btn_pause= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_pause);
+
+        btn_backward_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_backward);
+        btn_forward_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_forward);
+        btn_play_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_play);
+        btn_pause_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_pause);
         img_song= (ImageView) findViewById(R.id.img_song);
         sb_music= (SeekBar) findViewById(R.id.sb_music);
+
         xuly_music.get_instance().set_on_play_listener(this);
 
     }
@@ -115,10 +122,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             @Override
             public void onClick(View v) {
                 if (xuly_music.STATE==xuly_music.PLAYING) {
-                btn_pause.setVisibility(View.GONE);
-                btn_play.setVisibility(View.VISIBLE);
                 xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
-                xuly_music.pause();
+                xuly_music.pause(null);
             }}
         });
 
@@ -126,20 +131,39 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             @Override
             public void onClick(View v) {
                 if (!(xuly_music.STATE==xuly_music.PLAYING)) {
-                btn_pause.setVisibility(View.VISIBLE);
-                btn_play.setVisibility(View.GONE);
                 xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
                 xuly_music.play(null);
+                    sync_state_btn_pause_play(true);
 
             }}
         });
+
+        btn_pause_btms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (xuly_music.STATE==xuly_music.PLAYING) {
+                xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
+                xuly_music.pause(null);
+                    sync_state_btn_pause_play(false);
+            }}
+        });
+
+        btn_play_btms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!(xuly_music.STATE==xuly_music.PLAYING)) {
+                xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
+                xuly_music.play(null);
+            }}
+        });
+
+
 
         btn_forward.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
-
                             break;
                         case MotionEvent.ACTION_UP:
                             break;
@@ -238,8 +262,36 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     if (music!=null) {
                 create_notification.create_noti(music.getSong_name(), xuly_music.get_instance().duration_toString());
                 create_notification.update_notifi(true);
-                create_notification.noti();}
+                create_notification.noti();
+                    }
         img_song.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_img_song_rotate));
+        sync_state_btn_pause_play(true);
+    }
+
+    @Override
+    public void on_pause(music music) {
+        sb_music.setProgress(xuly_music.get_instance().get_current_position());
+
+        img_song.clearAnimation();
+        sync_state_btn_pause_play(false);
+    }
+
+    public void sync_state_btn_pause_play (boolean is_play) {
+        create_notification create_notification = new create_notification(MainActivity.this);
+        if (is_play) {
+            btn_play_btms.setVisibility(View.GONE);
+            btn_play.setVisibility(View.GONE);
+            btn_pause.setVisibility(View.VISIBLE);
+            btn_pause_btms.setVisibility(View.VISIBLE);
+            create_notification.create_noti(null, null);
+            create_notification.update_notifi(true);
+        } else {
+            btn_pause_btms.setVisibility(View.GONE);
+            btn_pause.setVisibility(View.GONE);
+            btn_play.setVisibility(View.VISIBLE);
+            btn_play_btms.setVisibility(View.VISIBLE);
+            create_notification.update_notifi(true);
+        }
     }
 
     class update_seekBar extends AsyncTask<Integer, Integer, Void> {
@@ -249,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             int progress = 0;
             while (xuly_music.STATE==xuly_music.PLAYING) {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(700);
                         publishProgress(xuly_music.get_instance().get_current_position());
                     } catch (InterruptedException e) {
                         e.printStackTrace();

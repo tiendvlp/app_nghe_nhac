@@ -17,7 +17,7 @@ public class xuly_music {
     public static final int PAUSE=3;
     // ban đầu sẽ là idle
     public static int STATE=IDLE;
-    private on_play_listener on_play_listener;
+    private on_play_pause_listener on_play_pause_listener;
     // dùng để truyền thằng music này cho những thằng bắt sự kiện play
     private static music music;
 
@@ -46,10 +46,11 @@ public class xuly_music {
         }
     }
 
-    public void pause () {
+    public void pause (music music) {
         if (STATE == PLAYING) {
             mediaPlayer.pause();
             STATE=PAUSE;
+            on_play_pause_listener.on_pause(music);
         }
     }
 
@@ -57,7 +58,7 @@ public class xuly_music {
         if(STATE == IDLE || STATE == PAUSE || STATE == STOPPED) {
             mediaPlayer.start();
             STATE=PLAYING;
-            on_play_listener.on_play(music);
+            on_play_pause_listener.on_play(music);
         }}
 
     public void seek_to (int mili) {
@@ -91,8 +92,8 @@ public class xuly_music {
         mediaPlayer.reset();
     }
     // sự kiện khi play nhạc
-    public void set_on_play_listener (on_play_listener on_play_listener) {
-        this.on_play_listener=on_play_listener;
+    public void set_on_play_listener (on_play_pause_listener on_play_listener) {
+        this.on_play_pause_listener=on_play_listener;
     }
 
     public static com.example.dangminhtien.zingmp3.data.music getMusic() {
@@ -103,8 +104,9 @@ public class xuly_music {
         com.example.dangminhtien.zingmp3.model.xuly_music.music = music;
     }
 
-    public interface on_play_listener {
+    public interface on_play_pause_listener {
         void on_play(music music);
+        void on_pause(music music);
     }
 
 }

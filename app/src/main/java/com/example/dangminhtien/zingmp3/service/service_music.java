@@ -16,6 +16,7 @@ public class service_music extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         try {
+            xuly_music.get_instance().reset();
             xuly_music.get_instance().set_data_source(intent.getStringExtra("song_name"));
             xuly_music.get_instance().play(null);
         } catch (IOException e) {

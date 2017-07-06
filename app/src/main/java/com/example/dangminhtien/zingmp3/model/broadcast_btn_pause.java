@@ -9,7 +9,7 @@ public class broadcast_btn_pause extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         create_notification create_notification = new create_notification(context);
         if (xuly_music.STATE==xuly_music.PLAYING) {
-            xuly_music.get_instance().pause();
+            xuly_music.get_instance().pause(null);
         } else {
             xuly_music.get_instance().play(null);
         }
