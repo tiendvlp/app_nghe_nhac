@@ -10,6 +10,7 @@ import java.io.IOException;
 public class xuly_music {
     private static MediaPlayer mediaPlayer;
     private static final xuly_music xuly_music=new xuly_music();
+
     // Tự tạo vòng đời
     public static final int IDLE=0;
     public static final int PLAYING=1;
@@ -17,9 +18,14 @@ public class xuly_music {
     public static final int PAUSE=3;
     // ban đầu sẽ là idle
     public static int STATE=IDLE;
+
+    public static final int SRC_FROM_lIBRARY=12920301;
+    public static final int SRC_FROM_FAVORITE=122309912;
+    public static int SRC_FROM;
     private on_play_pause_listener on_play_pause_listener;
     // dùng để truyền thằng music này cho những thằng bắt sự kiện play
     private static music music;
+
 
     private xuly_music () {
         mediaPlayer=new MediaPlayer();

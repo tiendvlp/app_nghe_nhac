@@ -40,8 +40,11 @@ public class fragment_music_library extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static fragment_music_library newInstance(String param1, String param2) {
+    public static fragment_music_library newInstance(Boolean is_library) {
         fragment_music_library fragment = new fragment_music_library();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("is_library", is_library);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -56,7 +59,11 @@ public class fragment_music_library extends Fragment {
         rcv_lbr= (RecyclerView) view.findViewById(R.id.rcb_lbr);
         read_from_realm read_from_realm = new read_from_realm(getContext());
         src_music=new ArrayList<>();
+            if (getArguments().getBoolean("is_library")) {
         src_music.addAll(read_from_realm.get_all_music());
+            } else {
+        src_music.addAll(read_from_realm.get_all_favorite_music());
+            }
         adapter_library_music=new adapter_library_music(getContext(), src_music, rcv_lbr);
         rcv_lbr.setAdapter(adapter_library_music);
         rcv_lbr.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,9 +86,12 @@ public class fragment_music_library extends Fragment {
                         Intent intent = new Intent(getContext(), service_music.class);
                             intent.putExtra("song_name", music.getSong_name_path());
                 bind=getContext().bindService(intent, new MainActivity(), Context.BIND_AUTO_CREATE);
-
-
-        }}});
+        }           if (getArguments().getBoolean("is_library")) {
+                xuly_music.SRC_FROM=xuly_music.SRC_FROM_lIBRARY;}
+                else {
+                    xuly_music.SRC_FROM=xuly_music.SRC_FROM_FAVORITE;
+            }
+            }});
     }
 
     @Override

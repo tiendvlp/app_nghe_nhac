@@ -56,18 +56,18 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         addEvents();
         xuly_bottom_sheet();
         music music = new music();
-        music.setId_music("12312312");
-        music.setSinger_name("Noo");
-        music.setSong_name("Mình Anh");
-        music.setFavorite_music(true);
-        music.setSong_name_path("minhanh");
+        music.setId_music("12312sdas312");
+        music.setSinger_name("Da Lab");
+        music.setSong_name("Từ Ngày Em Đến");
+        music.setFavorite_music(false);
+        music.setSong_name_path("tungayemden");
 
         music music1 = new music();
-        music1.setId_music("12312312123");
-        music1.setSinger_name("Erik");
-        music1.setSong_name("Ghen");
-        music1.setFavorite_music(true);
-        music1.setSong_name_path("ghen");
+        music1.setId_music("123123121qwe23");
+        music1.setSinger_name("Chi Dân");
+        music1.setSong_name("1234");
+        music1.setFavorite_music(false);
+        music1.setSong_name_path("1234");
 
         write_to_realm write_to_realm = new write_to_realm(getApplicationContext());
 //        write_to_realm.write(music);

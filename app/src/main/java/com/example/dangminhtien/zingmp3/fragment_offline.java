@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.dangminhtien.zingmp3.fragment.fragment_music_library;
 
@@ -54,14 +53,15 @@ public class fragment_offline extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity mainActivity = new MainActivity();
-                mainActivity.replace_fragment((AppCompatActivity) getContext(), new fragment_music_library());
+                mainActivity.replace_fragment((AppCompatActivity) getContext(), fragment_music_library.newInstance(true));
             }
         });
 
         ln_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+                MainActivity mainActivity = new MainActivity();
+                mainActivity.replace_fragment((AppCompatActivity) getContext(), fragment_music_library.newInstance(false));
             }
         });
 
