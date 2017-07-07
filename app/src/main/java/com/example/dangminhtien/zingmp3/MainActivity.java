@@ -213,14 +213,42 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     case 1:
                         xuly_music.setMode(2);
                         btn_mode.setImageLevel(2);
+                        sync_state_btn_mode(2);
                         break;
                     case 2:
                         xuly_music.setMode(3);
                         btn_mode.setImageLevel(3);
+                        sync_state_btn_mode(3);
                         break;
                     case 3:
                         xuly_music.setMode(1);
                         btn_mode.setImageLevel(1);
+                        sync_state_btn_mode(1);
+                        break;
+                    default:
+                        return;
+                }
+        }});
+
+        btn_mode_btms.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                switch (xuly_music.getMode())  {
+                    case 1:
+                        xuly_music.setMode(2);
+                        btn_mode_btms.setImageLevel(2);
+                        sync_state_btn_mode(2);
+                        break;
+                    case 2:
+                        xuly_music.setMode(3);
+                        btn_mode_btms.setImageLevel(3);
+                        sync_state_btn_mode(3);
+                        break;
+                    case 3:
+                        xuly_music.setMode(1);
+                        btn_mode_btms.setImageLevel(1);
+                        sync_state_btn_mode(1);
                         break;
                     default:
                         return;
@@ -321,6 +349,11 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             create_notification.create_noti(null, null);
             create_notification.update_notifi(false);
         }
+    }
+
+    public void sync_state_btn_mode (int mode) {
+         btn_mode.setImageLevel(mode);
+         btn_mode_btms.setImageLevel(mode);
     }
 
     @Override
