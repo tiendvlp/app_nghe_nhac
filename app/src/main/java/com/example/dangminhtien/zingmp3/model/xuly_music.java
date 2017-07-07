@@ -119,6 +119,7 @@ public class xuly_music {
 
     public void next_music (Context context) {
         ArrayList<music> src_music = new ArrayList<>();
+        if (get_source(context)!=null) {
         src_music.addAll(get_source(context));
             if (position<src_music.size()-1) {
                 position=position+1;
@@ -131,7 +132,7 @@ public class xuly_music {
             play(src_music.get(position));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }}
     }
 
     public void process_mode (Context context) throws IOException {
@@ -172,7 +173,8 @@ public class xuly_music {
 
     public void prev_music (Context context) {
         ArrayList<music> src_music = new ArrayList<>();
-        src_music.addAll(get_source(context));
+        if (get_source(context)!=null) {
+            src_music.addAll(get_source(context));
             if (position>0) {
                 position=position-1;
             } else {
@@ -185,7 +187,7 @@ public class xuly_music {
             play(src_music.get(position));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }}
     }
 
     public ArrayList<music> get_source (Context context) {

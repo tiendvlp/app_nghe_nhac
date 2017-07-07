@@ -22,6 +22,24 @@
                 <action android:name="play_and_pause"></action>
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".broadcast_reciever.broadcast_btn_next">
+            <intent-filter>
+                <action android:name="next"></action>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".broadcast_reciever.broadcast_btn_previous">
+            <intent-filter>
+                <action android:name="previous"></action>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".model.broadcast_btn_pause">
+            <intent-filter>
+                <action android:name="play_and_pause"></action>
+            </intent-filter>
+        </receiver>
         <service android:name=".service.service_music"
             android:exported="true"
             android:enabled="true"/>
