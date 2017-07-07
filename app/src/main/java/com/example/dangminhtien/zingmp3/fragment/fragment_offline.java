@@ -1,4 +1,4 @@
-package com.example.dangminhtien.zingmp3;
+package com.example.dangminhtien.zingmp3.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.dangminhtien.zingmp3.fragment.fragment_music_library;
+import com.example.dangminhtien.zingmp3.activity.MainActivity;
+import com.example.dangminhtien.zingmp3.R;
 
 public class fragment_offline extends Fragment {
     private LinearLayout ln_library;

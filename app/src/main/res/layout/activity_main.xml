@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="2"
-    tools:context="com.example.dangminhtien.zingmp3.MainActivity">
+    tools:context="com.example.dangminhtien.zingmp3.activity.MainActivity">
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_weight="1.75"

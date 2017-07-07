@@ -4,13 +4,11 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
-import com.example.dangminhtien.zingmp3.fragment_bangxephang_online;
-import com.example.dangminhtien.zingmp3.fragment_nhacmoi;
-import com.example.dangminhtien.zingmp3.fragment_nhacnoibat;
+import com.example.dangminhtien.zingmp3.fragment.fragment_bangxephang_online;
+import com.example.dangminhtien.zingmp3.fragment.fragment_nhacmoi;
+import com.example.dangminhtien.zingmp3.fragment.fragment_nhacnoibat;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

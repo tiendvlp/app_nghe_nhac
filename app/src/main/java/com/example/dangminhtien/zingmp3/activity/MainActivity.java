@@ -1,9 +1,8 @@
-package com.example.dangminhtien.zingmp3;
+package com.example.dangminhtien.zingmp3.activity;
 
 import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
-import android.graphics.drawable.LevelListDrawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,10 +24,14 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.example.dangminhtien.zingmp3.data.helper_tools;
+import com.example.dangminhtien.zingmp3.R;
+import com.example.dangminhtien.zingmp3.helper.helper_tools;
 import com.example.dangminhtien.zingmp3.data.music;
 import com.example.dangminhtien.zingmp3.data.write_data_to_external_storage;
 import com.example.dangminhtien.zingmp3.data.write_to_realm;
+import com.example.dangminhtien.zingmp3.fragment.fragment_offline;
+import com.example.dangminhtien.zingmp3.fragment.fragment_online;
+import com.example.dangminhtien.zingmp3.fragment.fragment_search;
 import com.example.dangminhtien.zingmp3.model.create_notification;
 import com.example.dangminhtien.zingmp3.model.xuly_music;
 import com.example.dangminhtien.zingmp3.service.service_music;
@@ -286,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState==BottomSheetBehavior.STATE_COLLAPSED) {
-                    behavior.setPeekHeight(helper_tools.convert_dp_to_px(32));
+                    behavior.setPeekHeight(helper_tools.convert_dp_to_px(39));
                 } else if (newState==BottomSheetBehavior.STATE_EXPANDED){
                     behavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
                 }
@@ -298,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             }
         });
         behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        behavior.setPeekHeight(helper_tools.convert_dp_to_px(32));
+        behavior.setPeekHeight(helper_tools.convert_dp_to_px(39));
     }
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {

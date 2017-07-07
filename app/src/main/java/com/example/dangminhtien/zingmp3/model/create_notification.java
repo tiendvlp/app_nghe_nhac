@@ -11,13 +11,8 @@ import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RemoteViews;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.dangminhtien.zingmp3.MainActivity;
 import com.example.dangminhtien.zingmp3.R;
 
 /**

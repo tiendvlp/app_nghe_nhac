@@ -1,4 +1,4 @@
-package com.example.dangminhtien.zingmp3;
+package com.example.dangminhtien.zingmp3.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.dangminhtien.zingmp3.R;
 import com.example.dangminhtien.zingmp3.adapter.adapter_bangxephang;
 import com.example.dangminhtien.zingmp3.data.bangxephang;
 

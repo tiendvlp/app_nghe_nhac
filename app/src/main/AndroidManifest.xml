@@ -11,13 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".model.broadcast_btn_pause">
+        <receiver android:name=".broadcast_reciever.broadcast_btn_pause">
             <intent-filter>
                 <action android:name="play_and_pause"></action>
             </intent-filter>
@@ -35,7 +35,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".model.broadcast_btn_pause">
+        <receiver android:name=".broadcast_reciever.broadcast_btn_pause">
             <intent-filter>
                 <action android:name="play_and_pause"></action>
             </intent-filter>

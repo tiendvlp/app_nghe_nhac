@@ -1,4 +1,4 @@
-package com.example.dangminhtien.zingmp3.data;
+package com.example.dangminhtien.zingmp3.helper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +21,6 @@ public class helper_tools {
 
     public int convert_dp_to_px(int dp) {
         DisplayMetrics displayMetrics= activity.getResources().getDisplayMetrics();
-        Toast.makeText(context, displayMetrics.densityDpi+"", Toast.LENGTH_SHORT).show();
         return (int) (dp*(displayMetrics.densityDpi/160));
     }
 

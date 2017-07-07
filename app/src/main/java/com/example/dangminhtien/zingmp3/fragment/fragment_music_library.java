@@ -1,13 +1,8 @@
 package com.example.dangminhtien.zingmp3.fragment;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.net.Uri;
-import android.os.Binder;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.dangminhtien.zingmp3.MainActivity;
+import com.example.dangminhtien.zingmp3.activity.MainActivity;
 import com.example.dangminhtien.zingmp3.R;
 import com.example.dangminhtien.zingmp3.adapter.adapter_library_music;
 import com.example.dangminhtien.zingmp3.data.music;

@@ -1,4 +1,4 @@
-package com.example.dangminhtien.zingmp3;
+package com.example.dangminhtien.zingmp3.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.dangminhtien.zingmp3.R;
 import com.example.dangminhtien.zingmp3.adapter.adapter_vpg_online;
 
 

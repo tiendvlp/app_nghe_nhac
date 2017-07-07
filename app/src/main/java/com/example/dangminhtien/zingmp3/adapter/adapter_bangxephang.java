@@ -9,11 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.dangminhtien.zingmp3.MainActivity;
+import com.example.dangminhtien.zingmp3.activity.MainActivity;
 import com.example.dangminhtien.zingmp3.R;
 import com.example.dangminhtien.zingmp3.data.bangxephang;
-import com.example.dangminhtien.zingmp3.fragment_bangxephang;
-import com.example.dangminhtien.zingmp3.fragment_bangxephang_online;
+import com.example.dangminhtien.zingmp3.fragment.fragment_bangxephang;
 
 import java.util.ArrayList;
 
