@@ -110,8 +110,16 @@ public class xuly_music {
         this.on_play_pause_listener=on_play_listener;
     }
 
-    public void next_music () {
-
+    public void next_music (Context context) {
+        ArrayList<music> src_music = new ArrayList<>();
+        src_music.addAll(get_source(context));
+        try {
+            reset();
+            set_data_source(src_music.get(position+1).getSong_name());
+            play(src_music.get(position+1));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<music> get_source (Context context) {

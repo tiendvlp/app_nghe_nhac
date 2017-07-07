@@ -22,13 +22,17 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.example.dangminhtien.zingmp3.data.helper_tools;
 import com.example.dangminhtien.zingmp3.data.music;
+import com.example.dangminhtien.zingmp3.data.write_data_to_external_storage;
 import com.example.dangminhtien.zingmp3.data.write_to_realm;
 import com.example.dangminhtien.zingmp3.model.create_notification;
 import com.example.dangminhtien.zingmp3.model.xuly_music;
 import com.example.dangminhtien.zingmp3.service.service_music;
+
+import java.io.IOException;
 
 import io.realm.Realm;
 
@@ -55,21 +59,33 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         addControls();
         addEvents();
         xuly_bottom_sheet();
+
+        write_data_to_external_storage write_data_to_external_storage = new write_data_to_external_storage(getApplicationContext(), this);
+//        try {
+//            write_data_to_external_storage.write_music("minhanh.mp3");
+//            write_data_to_external_storage.write_music("ghen.mp3");
+//        } catch (IOException e) {
+//            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+//
+//            e.printStackTrace();
+//        }
         music music = new music();
         music.setId_music("12312sdas312");
-        music.setSinger_name("Da Lab");
-        music.setSong_name("Từ Ngày Em Đến");
+        music.setSinger_name("Noo");
+        music.setSong_name("Mình Anh");
         music.setFavorite_music(false);
-        music.setSong_name_path("tungayemden");
+        music.setSong_name_path("minhanh");
 
         music music1 = new music();
         music1.setId_music("123123121qwe23");
-        music1.setSinger_name("Chi Dân");
-        music1.setSong_name("1234");
+        music1.setSinger_name("Erik");
+        music1.setSong_name("Ghen");
         music1.setFavorite_music(false);
-        music1.setSong_name_path("1234");
+        music1.setSong_name_path("ghen");
 
         write_to_realm write_to_realm = new write_to_realm(getApplicationContext());
+//        write_to_realm.write(music);
+//        write_to_realm.write(music1);
     }
 
     private void addControls() {
@@ -158,18 +174,10 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
 
 
-        btn_forward.setOnTouchListener(new View.OnTouchListener() {
+        btn_forward.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            break;
-                        default:
-                            break;
-                    }
-                return true;
+            public void onClick(View v) {
+                xuly_music.get_instance().next_music(getApplicationContext());
             }
         });
         sb_music.setProgress(xuly_music.get_instance().get_duration());

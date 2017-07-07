@@ -79,6 +79,7 @@ public class fragment_music_library extends Fragment {
                             xuly_music.get_instance().reset();
                             xuly_music.get_instance().set_data_source(music.getSong_name_path());
                             xuly_music.get_instance().play(music);
+                            Toast.makeText(getContext(), "play", Toast.LENGTH_LONG).show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -87,10 +88,10 @@ public class fragment_music_library extends Fragment {
                             intent.putExtra("song_name", music.getSong_name_path());
                 bind=getContext().bindService(intent, new MainActivity(), Context.BIND_AUTO_CREATE);
         }           if (getArguments().getBoolean("is_library")) {
-                xuly_music.SRC_FROM=xuly_music.SRC_FROM_lIBRARY;}
+                xuly_music.get_instance().set_src_position(xuly_music.SRC_FROM_lIBRARY, position);}
                 else {
-                    xuly_music.SRC_FROM=xuly_music.SRC_FROM_FAVORITE;
-            }
+                    xuly_music.get_instance().set_src_position(xuly_music.SRC_FROM_FAVORITE, position);}
+
             }});
     }
 
