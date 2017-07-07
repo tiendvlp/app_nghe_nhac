@@ -27,8 +27,6 @@ public class xuly_music {
     private static int position;
     private static int mode;
 
-
-
     public static final int SRC_FROM_lIBRARY=12920301;
     public static final int SRC_FROM_FAVORITE=122309912;
     private static int SRC_FROM;
@@ -157,8 +155,7 @@ public class xuly_music {
     }
 
     public void mode_next (Context context) {
-            if(!(position==get_source(context).size()-1)) {
-        next_music(context);}
+        next_music(context);
     }
 
     public void mode_replay_one (Context context) {

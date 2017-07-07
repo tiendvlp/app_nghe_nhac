@@ -3,6 +3,7 @@ package com.example.dangminhtien.zingmp3;
 import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
+import android.graphics.drawable.LevelListDrawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         btn_play_and_pause_btms.setImageLevel(1);
         btn_mode.setImageLevel(1);
         btn_mode_btms.setImageLevel(1);
+        xuly_music.setMode(1);
         xuly_music.get_instance().set_on_complete_listener(this);
         xuly_music.get_instance().set_on_play_listener(this);
 
@@ -204,10 +206,26 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         });
 
         btn_mode.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-            }
-        });
+                switch (xuly_music.getMode())  {
+                    case 1:
+                        xuly_music.setMode(2);
+                        btn_mode.setImageLevel(2);
+                        break;
+                    case 2:
+                        xuly_music.setMode(3);
+                        btn_mode.setImageLevel(3);
+                        break;
+                    case 3:
+                        xuly_music.setMode(1);
+                        btn_mode.setImageLevel(1);
+                        break;
+                    default:
+                        return;
+                }
+        }});
 
     }
 
@@ -309,6 +327,12 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     public void onCompletion(MediaPlayer mp) {
         sync_state_btn_pause_play(false);
         img_song.clearAnimation();
+        try {
+            xuly_music.get_instance().process_mode(getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     class update_seekBar extends AsyncTask<Integer, Integer, Void> {
