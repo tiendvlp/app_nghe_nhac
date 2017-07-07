@@ -303,6 +303,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         behavior.setPeekHeight(helper_tools.convert_dp_to_px(39));
     }
+
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         com.example.dangminhtien.zingmp3.service.service_music.binder binder = (service_music.binder) service;

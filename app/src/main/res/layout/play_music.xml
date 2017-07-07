@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorRed_beauty">
-<include layout="@layout/play_music_when_close_bottom_sheet"
+<include layout="@layout/control_music"
     android:id="@+id/control_music"
     />
 </LinearLayout>
@@ -37,7 +37,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="150dp"
         android:background="@null"/>
-        <include layout="@layout/play_music_when_close_bottom_sheet"
+        <include layout="@layout/control_music"
             android:id="@+id/control_music_btms"
             />
 </LinearLayout>

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.dangminhtien.zingmp3.activity.MainActivity;
 import com.example.dangminhtien.zingmp3.R;
 import com.example.dangminhtien.zingmp3.data.bangxephang;
-import com.example.dangminhtien.zingmp3.fragment.fragment_bangxephang;
+import com.example.dangminhtien.zingmp3.fragment.fragment_bangxephang_and_favorite;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ public class adapter_bangxephang extends RecyclerView.Adapter<adapter_bangxephan
     public void onClick(View v) {
         int position = recyclerView.getChildLayoutPosition(v);
         MainActivity mainActivity=new MainActivity();
-        mainActivity.replace_fragment((AppCompatActivity) context, new fragment_bangxephang());
+        mainActivity.replace_fragment((AppCompatActivity) context, new fragment_bangxephang_and_favorite());
     }
 
     class viewholder extends RecyclerView.ViewHolder {

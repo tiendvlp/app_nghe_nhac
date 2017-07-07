@@ -18,12 +18,12 @@ import com.example.dangminhtien.zingmp3.data.read_from_realm;
 
 import java.util.ArrayList;
 
-public class fragment_bangxephang extends Fragment {
+public class fragment_bangxephang_and_favorite extends Fragment {
     private RecyclerView rcv_bxh;
     private ArrayList<music> src_music;
     private OnFragmentInteractionListener mListener;
 
-    public fragment_bangxephang() {
+    public fragment_bangxephang_and_favorite() {
     }
 
     @Override
@@ -31,8 +31,8 @@ public class fragment_bangxephang extends Fragment {
         super.onResume();
     }
 
-    public static fragment_bangxephang newInstance() {
-        fragment_bangxephang fragment = new fragment_bangxephang();
+    public static fragment_bangxephang_and_favorite newInstance() {
+        fragment_bangxephang_and_favorite fragment = new fragment_bangxephang_and_favorite();
         return fragment;
     }
 
@@ -45,7 +45,7 @@ public class fragment_bangxephang extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bangxephang, container, false);
+        return inflater.inflate(R.layout.fragment_bangxephang_and_favorite, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
