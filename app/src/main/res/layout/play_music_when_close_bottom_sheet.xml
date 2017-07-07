@@ -7,7 +7,7 @@
     android:layout_height="32dp">
 
     <ImageButton
-        android:id="@+id/btn_backward"
+        android:id="@+id/btn_prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
@@ -17,32 +17,20 @@
         app:srcCompat="@drawable/backward_white" />
 
     <ImageButton
-        android:id="@+id/btn_pause"
+        android:id="@+id/btn_play_and_pause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@null"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pause_white"
-        app:layout_constraintLeft_toRightOf="@+id/btn_backward"
         android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/btn_forward" />
-
-    <ImageButton
-        android:id="@+id/btn_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="176dp"
         android:layout_weight="1"
         android:background="@null"
-        android:visibility="gone"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_prev"
+        app:layout_constraintRight_toLeftOf="@+id/btn_next"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/play_white"
-        android:layout_marginTop="0dp" />
+        app:srcCompat="@drawable/play_and_pause"
+        />
 
     <ImageButton
-        android:id="@+id/btn_forward"
+        android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="32dp"
@@ -50,4 +38,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/forward_white" />
+
+    <ImageButton
+        android:id="@+id/btn_mode"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/btn_prev"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mode_img" />
 </android.support.constraint.ConstraintLayout>

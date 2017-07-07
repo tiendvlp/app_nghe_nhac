@@ -3,12 +3,15 @@ package com.example.dangminhtien.zingmp3.model;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.widget.Toast;
 
 import com.example.dangminhtien.zingmp3.data.music;
 import com.example.dangminhtien.zingmp3.data.read_from_realm;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static android.R.attr.mode;
 
 public class xuly_music {
     private static MediaPlayer mediaPlayer;
@@ -22,6 +25,9 @@ public class xuly_music {
     // ban đầu sẽ là idle
     public static int STATE=IDLE;
     private static int position;
+    private static int mode;
+
+
 
     public static final int SRC_FROM_lIBRARY=12920301;
     public static final int SRC_FROM_FAVORITE=122309912;
@@ -29,14 +35,16 @@ public class xuly_music {
     private on_play_pause_listener on_play_pause_listener;
     // dùng để truyền thằng music này cho những thằng bắt sự kiện play
     private static music music;
-
+    // Dùng để set event khi mà nhạc play xong, event này do mediaplayer cung cấp, nhưng mà chúng ta cần phải khai báo ở đây là vì
+    // chúng ta chỉ set event khi người dùng nhấn nút play mà thôi (mặc định event này cũng sẽ tự chạy khi lần đầu mở app)
+    MediaPlayer.OnCompletionListener onCompletionListener;
 
     private xuly_music () {
         mediaPlayer=new MediaPlayer();
     }
 
     public static xuly_music get_instance () {
-            return xuly_music;
+        return xuly_music;
     }
 
     public void set_data_source(String song_name) throws IOException {
@@ -68,6 +76,7 @@ public class xuly_music {
             mediaPlayer.start();
             STATE=PLAYING;
             on_play_pause_listener.on_play(music);
+            mediaPlayer.setOnCompletionListener(onCompletionListener);
         }}
 
     public void set_src_position (int SRC_FROM, int position) {
@@ -113,10 +122,70 @@ public class xuly_music {
     public void next_music (Context context) {
         ArrayList<music> src_music = new ArrayList<>();
         src_music.addAll(get_source(context));
+            if (position<src_music.size()-1) {
+                position=position+1;
+            } else {
+                position=0;
+            }
         try {
             reset();
-            set_data_source(src_music.get(position+1).getSong_name());
-            play(src_music.get(position+1));
+            set_data_source(src_music.get(position).getSong_name());
+            play(src_music.get(position));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void process_mode (Context context) throws IOException {
+        switch (mode) {
+            case 1:
+                mode_next(context);
+                break;
+            case 2:
+                mode_multi_replay(context);
+                break;
+            case 3:
+                mode_replay_one(context);
+                break;
+            default:
+                return;
+        }
+    }
+
+    public void mode_multi_replay (Context context) throws IOException {
+        next_music(context);
+    }
+
+    public void mode_next (Context context) {
+            if(!(position==get_source(context).size()-1)) {
+        next_music(context);}
+    }
+
+    public void mode_replay_one (Context context) {
+        try {
+            reset();
+            set_data_source(get_source(context).get(position).getSong_name_path());
+            play(get_source(context).get(position));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        play(get_source(context).get(position));
+
+    }
+
+    public void prev_music (Context context) {
+        ArrayList<music> src_music = new ArrayList<>();
+        src_music.addAll(get_source(context));
+            if (position>0) {
+                position=position-1;
+            } else {
+                position=src_music.size()-1;
+
+            }
+        try {
+            reset();
+            set_data_source(src_music.get(position).getSong_name());
+            play(src_music.get(position));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,6 +201,19 @@ public class xuly_music {
             default:
                 return null;
         }
+
+    }
+
+    public static int getMode() {
+        return mode;
+    }
+
+    public static void setMode(int mode) {
+        com.example.dangminhtien.zingmp3.model.xuly_music.mode = mode;
+    }
+
+    public void set_on_complete_listener (MediaPlayer.OnCompletionListener on_complete_listener) {
+        this.onCompletionListener=on_complete_listener;
     }
 
     public static com.example.dangminhtien.zingmp3.data.music getMusic() {

@@ -3,6 +3,7 @@ package com.example.dangminhtien.zingmp3;
 import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
@@ -16,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -36,7 +36,7 @@ import java.io.IOException;
 
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity implements ServiceConnection, xuly_music.on_play_pause_listener {
+public class MainActivity extends AppCompatActivity implements ServiceConnection, xuly_music.on_play_pause_listener,MediaPlayer.OnCompletionListener {
     private BottomNavigationView btm_nav_menu;
     private Fragment fragment_offline, fragment_search, fragment_online;
     private helper_tools helper_tools;
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     private View btms;
     private ImageView img_song;
     private com.example.dangminhtien.zingmp3.service.service_music service_music;
-    private ImageButton btn_pause, btn_backward, btn_forward, btn_play;
-    private ImageButton btn_pause_btms, btn_backward_btms, btn_forward_btms, btn_play_btms;
+    private ImageButton btn_play_and_pause, btn_prev, btn_next, btn_mode;
+    private ImageButton btn_play_and_pause_btms, btn_backward_btms, btn_forward_btms, btn_mode_btms;
     public static final int CONNECTED=0;
     public static final int DISCONNECTED=1;
     private SeekBar sb_music;
@@ -61,31 +61,40 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         xuly_bottom_sheet();
 
         write_data_to_external_storage write_data_to_external_storage = new write_data_to_external_storage(getApplicationContext(), this);
-//        try {
-//            write_data_to_external_storage.write_music("minhanh.mp3");
-//            write_data_to_external_storage.write_music("ghen.mp3");
-//        } catch (IOException e) {
-//            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-//
-//            e.printStackTrace();
-//        }
+        try {
+            write_data_to_external_storage.write_music("minhanh.mp3");
+            write_data_to_external_storage.write_music("ghen.mp3");
+            write_data_to_external_storage.write_music("1234.mp3");
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+
+            e.printStackTrace();
+        }
         music music = new music();
-        music.setId_music("12312sdas312");
+        music.setId_music("12312sdasdas312");
         music.setSinger_name("Noo");
         music.setSong_name("Mình Anh");
         music.setFavorite_music(false);
         music.setSong_name_path("minhanh");
 
         music music1 = new music();
-        music1.setId_music("123123121qwe23");
+        music1.setId_music("123123121231qwe23");
         music1.setSinger_name("Erik");
         music1.setSong_name("Ghen");
         music1.setFavorite_music(false);
         music1.setSong_name_path("ghen");
 
+        music music2 = new music();
+        music2.setId_music("123123121qwcbcvbe23");
+        music2.setSinger_name("Chi Dân");
+        music2.setSong_name("1234");
+        music2.setFavorite_music(false);
+        music2.setSong_name_path("1234");
+
         write_to_realm write_to_realm = new write_to_realm(getApplicationContext());
 //        write_to_realm.write(music);
 //        write_to_realm.write(music1);
+//        write_to_realm.write(music2);
     }
 
     private void addControls() {
@@ -96,18 +105,22 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         fragment_search=new fragment_search();
         fragment_online=new fragment_online();
         helper_tools=new helper_tools(this,this);
-        btn_backward= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_backward);
-        btn_forward= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_forward);
-        btn_play= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_play);
-        btn_pause= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_pause);
-
-        btn_backward_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_backward);
-        btn_forward_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_forward);
-        btn_play_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_play);
-        btn_pause_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_pause);
+        btn_prev= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_prev);
+        btn_next= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_next);
+        btn_mode= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_mode);
+        btn_play_and_pause= (ImageButton) findViewById(R.id.control_music).findViewById(R.id.btn_play_and_pause);
+        btn_backward_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_prev);
+        btn_mode_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_mode);
+        btn_forward_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_next);
+        btn_play_and_pause_btms= (ImageButton) findViewById(R.id.control_music_btms).findViewById(R.id.btn_play_and_pause);
         img_song= (ImageView) findViewById(R.id.img_song);
         sb_music= (SeekBar) findViewById(R.id.sb_music);
 
+        btn_play_and_pause.setImageLevel(1);
+        btn_play_and_pause_btms.setImageLevel(1);
+        btn_mode.setImageLevel(1);
+        btn_mode_btms.setImageLevel(1);
+        xuly_music.get_instance().set_on_complete_listener(this);
         xuly_music.get_instance().set_on_play_listener(this);
 
     }
@@ -133,51 +146,40 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             }
         });
 
-        btn_pause.setOnClickListener(new View.OnClickListener() {
+        btn_play_and_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (xuly_music.STATE==xuly_music.PLAYING) {
-                xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
-                xuly_music.pause(null);
-            }}
-        });
-
-        btn_play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!(xuly_music.STATE==xuly_music.PLAYING)) {
-                xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
-                xuly_music.play(null);
-                    sync_state_btn_pause_play(true);
-
-            }}
-        });
-
-        btn_pause_btms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (xuly_music.STATE==xuly_music.PLAYING) {
-                xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
-                xuly_music.pause(null);
-                    sync_state_btn_pause_play(false);
-            }}
-        });
-
-        btn_play_btms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!(xuly_music.STATE==xuly_music.PLAYING)) {
-                xuly_music xuly_music = com.example.dangminhtien.zingmp3.model.xuly_music.get_instance();
-                xuly_music.play(null);
-            }}
+                if ((xuly_music.STATE==xuly_music.PLAYING)) {
+                    xuly_music.get_instance().pause(null);
+                } else {
+                    xuly_music.get_instance().play(null);
+                }}
         });
 
 
+        btn_play_and_pause_btms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((xuly_music.STATE==xuly_music.PLAYING)) {
+                    xuly_music.get_instance().pause(null);
+                } else {
+                    xuly_music.get_instance().play(null);
+                }
 
-        btn_forward.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+
+        btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 xuly_music.get_instance().next_music(getApplicationContext());
+            }
+        });
+
+        btn_prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xuly_music.get_instance().prev_music(getApplicationContext());
             }
         });
         sb_music.setProgress(xuly_music.get_instance().get_duration());
@@ -198,6 +200,12 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        btn_mode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
         });
 
@@ -278,34 +286,35 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     @Override
     public void on_pause(music music) {
         sb_music.setProgress(xuly_music.get_instance().get_current_position());
-
-        img_song.clearAnimation();
         sync_state_btn_pause_play(false);
+        img_song.clearAnimation();
     }
 
     public void sync_state_btn_pause_play (boolean is_play) {
         create_notification create_notification = new create_notification(MainActivity.this);
         if (is_play) {
-            btn_play_btms.setVisibility(View.GONE);
-            btn_play.setVisibility(View.GONE);
-            btn_pause.setVisibility(View.VISIBLE);
-            btn_pause_btms.setVisibility(View.VISIBLE);
+            btn_play_and_pause.setImageLevel(1);
+            btn_play_and_pause_btms.setImageLevel(1);
             create_notification.create_noti(null, null);
             create_notification.update_notifi(true);
         } else {
-            btn_pause_btms.setVisibility(View.GONE);
-            btn_pause.setVisibility(View.GONE);
-            btn_play.setVisibility(View.VISIBLE);
-            btn_play_btms.setVisibility(View.VISIBLE);
-            create_notification.update_notifi(true);
+            btn_play_and_pause.setImageLevel(2);
+            btn_play_and_pause_btms.setImageLevel(2);
+            create_notification.create_noti(null, null);
+            create_notification.update_notifi(false);
         }
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        sync_state_btn_pause_play(false);
+        img_song.clearAnimation();
     }
 
     class update_seekBar extends AsyncTask<Integer, Integer, Void> {
 
         @Override
         protected Void doInBackground(Integer... params) {
-            int progress = 0;
             while (xuly_music.STATE==xuly_music.PLAYING) {
                     try {
                         Thread.sleep(700);
